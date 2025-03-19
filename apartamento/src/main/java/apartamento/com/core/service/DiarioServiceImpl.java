@@ -4,17 +4,18 @@ import apartamento.com.common.http.dto.diario.DiarioPost;
 import apartamento.com.common.http.dto.diario.DiarioResponse;
 import apartamento.com.common.mapper.DiarioMapper;
 import apartamento.com.core.entity.Diario;
+import apartamento.com.core.service.impl.DiarioService;
 import apartamento.com.gateway.client.kitnet.DiarioClient;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DiarioService {
+public class DiarioServiceImpl implements DiarioService {
 
     private final DiarioClient diarioClient;
 
     private final DiarioMapper diarioMapper;
 
-    public DiarioService(DiarioClient diarioClient, DiarioMapper diarioMapper) {
+    public DiarioServiceImpl(DiarioClient diarioClient, DiarioMapper diarioMapper) {
         this.diarioClient = diarioClient;
         this.diarioMapper = diarioMapper;
     }

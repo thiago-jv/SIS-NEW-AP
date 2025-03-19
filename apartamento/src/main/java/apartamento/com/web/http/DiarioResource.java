@@ -2,7 +2,7 @@ package apartamento.com.web.http;
 
 import apartamento.com.common.http.dto.diario.DiarioPost;
 import apartamento.com.common.http.dto.diario.DiarioResponse;
-import apartamento.com.core.service.DiarioService;
+import apartamento.com.core.service.impl.DiarioService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

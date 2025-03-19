@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class DiarioClient {
 
-
     private final DiarioRepository diarioRepository;
 
     private final DiarioMapper diarioMapper;
