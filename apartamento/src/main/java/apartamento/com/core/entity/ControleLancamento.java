@@ -16,7 +16,8 @@ public class ControleLancamento implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "controle_lancamento_seq")
-	@SequenceGenerator(name = "controle_lancamento_seq", sequenceName = "controle_lancamento_seq", initialValue = 1, allocationSize = 1)
+	@SequenceGenerator(name = "controle_lancamento_seq", sequenceName = "controle_lancamento_seq", initialValue = 1,
+			allocationSize = 1)
 	@Column(name = "ID", nullable = false, unique = true)
 	private Long id;
 

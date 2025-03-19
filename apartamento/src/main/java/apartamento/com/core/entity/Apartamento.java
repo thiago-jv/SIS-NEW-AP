@@ -18,7 +18,8 @@ public class Apartamento implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "apartamento_seq")
-	@SequenceGenerator(name = "apartamento_seq", sequenceName = "apartamento_seq", initialValue = 1, allocationSize = 1)
+	@SequenceGenerator(name = "apartamento_seq", sequenceName = "apartamento_seq", initialValue = 1,
+			allocationSize = 1)
 	@Column(name = "ID", nullable = false, unique = true)
 	private Long id;
 

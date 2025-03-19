@@ -5,7 +5,6 @@ import apartamento.com.common.http.dto.diario.DiarioResponse;
 import apartamento.com.common.mapper.DiarioMapper;
 import apartamento.com.core.entity.Diario;
 import apartamento.com.gateway.client.kitnet.DiarioClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
