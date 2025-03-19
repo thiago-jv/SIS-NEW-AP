@@ -1,0 +1,26 @@
+#version: '3.5'
+services:
+  db-postgresql:
+    container_name: db-postgresql
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=bdnewap
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - network-new-apartamento
+
+volumes:
+  pgdata:
+
+networks:
+  network-new-apartamento:
+    driver: bridge
+
+
+
