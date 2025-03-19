@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -27,7 +28,15 @@ public class Diario implements Serializable {
     @Column(name = "DESCRICAO", nullable = false)
     private String descricao;
 
+    @Column(name = "DATA_ENTRADA", nullable = false)
+    private LocalDate dataEntrada;
+
     public Diario() {
+    }
+
+    public Diario(String descricao, LocalDate dataEntrada) {
+        this.descricao = descricao;
+        this.dataEntrada = dataEntrada;
     }
 
     public Long getId() {
@@ -44,6 +53,14 @@ public class Diario implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public LocalDate getDataEntrada() {
+        return dataEntrada;
+    }
+
+    public void setDataEntrada(LocalDate dataEntrada) {
+        this.dataEntrada = dataEntrada;
     }
 
     @Override

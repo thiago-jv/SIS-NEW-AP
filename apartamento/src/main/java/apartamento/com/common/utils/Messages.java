@@ -1,4 +1,4 @@
-package apartamento.com.core.utils;
+package apartamento.com.common.utils;
 
 import java.io.Serializable;
 

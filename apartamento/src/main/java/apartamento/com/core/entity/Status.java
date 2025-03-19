@@ -1,6 +1,6 @@
 package apartamento.com.core.entity;
 
-import apartamento.com.core.utils.Constantes;
+import apartamento.com.common.utils.Constantes;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 
