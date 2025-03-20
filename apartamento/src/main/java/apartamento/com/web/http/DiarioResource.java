@@ -1,17 +1,17 @@
 package apartamento.com.web.http;
 
 import apartamento.com.common.http.dto.diario.DiarioPost;
+import apartamento.com.common.http.dto.diario.DiarioPut;
 import apartamento.com.common.http.dto.diario.DiarioResponse;
 import apartamento.com.core.service.impl.DiarioService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @Tag(name = "Diario")
 @RestController
 @RequestMapping(value = "diarios", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -24,7 +24,30 @@ public class DiarioResource {
     }
 
     @PostMapping
-    public ResponseEntity<DiarioResponse> create(@RequestBody DiarioPost diarioPost){
+    public ResponseEntity<DiarioResponse> create(@RequestBody DiarioPost diarioPost) {
         return ResponseEntity.status(HttpStatus.CREATED).body(diarioService.create(diarioPost));
     }
+
+    @GetMapping
+    public ResponseEntity<List<DiarioResponse>> listAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(diarioService.findAll());
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remove(@PathVariable Long id){
+       diarioService.remove(id);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DiarioResponse> findById(@PathVariable Long id) throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(diarioService.findById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<DiarioResponse> update(@PathVariable Long id, @RequestBody DiarioPut diarioPut){
+        DiarioResponse diarioAtualizado = diarioService.update(diarioPut, id);
+        return ResponseEntity.status(HttpStatus.OK).body(diarioAtualizado);
+    }
+
 }

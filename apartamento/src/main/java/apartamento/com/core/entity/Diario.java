@@ -34,11 +34,6 @@ public class Diario implements Serializable {
     public Diario() {
     }
 
-    public Diario(String descricao, LocalDate dataEntrada) {
-        this.descricao = descricao;
-        this.dataEntrada = dataEntrada;
-    }
-
     public Long getId() {
         return id;
     }

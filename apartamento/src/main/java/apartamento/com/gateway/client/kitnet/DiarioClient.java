@@ -1,29 +1,43 @@
 package apartamento.com.gateway.client.kitnet;
 
-import apartamento.com.common.http.dto.diario.DiarioResponse;
-import apartamento.com.common.mapper.DiarioMapper;
 import apartamento.com.core.entity.Diario;
 import apartamento.com.gateway.client.kitnet.repository.DiarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DiarioClient {
 
     private final DiarioRepository diarioRepository;
 
-    private final DiarioMapper diarioMapper;
-
-    public DiarioClient(DiarioRepository diarioRepository, DiarioMapper diarioMapper) {
+    public DiarioClient(DiarioRepository diarioRepository) {
         this.diarioRepository = diarioRepository;
-        this.diarioMapper = diarioMapper;
     }
 
-    public DiarioResponse create(Diario diario) {
+    public Diario create(Diario diario) {
         Diario diarioSalvo = diarioRepository.save(diario);
-        DiarioResponse diarioResponse = diarioMapper.toDiarioResponse(diarioSalvo);
-        return diarioResponse;
+        return diarioSalvo;
+    }
 
+    public List<Diario> findAll() {
+        List<Diario> diarios = diarioRepository.findAll();
+        return diarios;
+    }
 
+    public void delete(Long id) {
+        diarioRepository.deleteById(id);
+    }
+
+    public Optional<Diario> findById(Long id) {
+        Optional<Diario> diario = diarioRepository.findById(id);
+        return diario;
+    }
+
+    @Transactional
+    public Diario update(Diario diario) {
+        Diario diarioAtualizado = diarioRepository.save(diario);
+        return diarioAtualizado;
     }
 }
