@@ -1,0 +1,53 @@
+<div class="container mt-4">
+
+  <h2 class="mb-3 text-center">Lista de Diários</h2>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Data de Registro</th>
+            <th scope="col" class="text-left">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let diario of diarios">
+            <th scope="row">{{ diario.id }}</th>
+            <td>{{ diario.descricao }}</td>
+            <td>{{ diario.dataRegistro | date: 'dd/MM/yyyy' }}</td>
+            <td>
+              <div class="d-flex gap-2 justify-content-start flex-wrap">
+                <button type="button" class="btn btn-danger btn-sm" (click)="openDeleteModal(diario)">
+                  <i class="fas fa-trash-alt"></i> Excluir
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" (click)="openEditModal(diario)">
+                  <i class="fas fa-edit"></i> Editar
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+
+</div>
+
+<!-- Modal de Confirmação para excluir -->
+<app-confirmation-modal
+  #confirmModal
+  modalId="deleteModal"
+  title="Excluir Diário"
+  message="Tem certeza que deseja excluir este diário?"
+  (confirmed)="delete(diarioSelecionado)">
+</app-confirmation-modal>
+
+<!-- Modal de Confirmação para editar -->
+<app-confirmation-modal
+  #confirmEditModal
+  modalId="editModal"
+  title="Confirmar Edição"
+  message="Tem certeza que deseja editar este diário?"
+  (confirmed)="editarDiario()">
+</app-confirmation-modal>
