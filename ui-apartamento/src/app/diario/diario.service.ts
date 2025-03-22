@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Diario } from '../core/model';
-
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Diario, DiarioFilter } from '../core/model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,5 +40,23 @@ export class DiarioService {
     return this.http.get<Diario>(`${this.diarioUrl}/${id}`).toPromise();
   }
 
+  async filter(filter: DiarioFilter): Promise<{ diarios: Diario[], total: number }> {
+    let params = new HttpParams()
+      .set('page', filter.pagina.toString())
+      .set('size', filter.intensPorPagina.toString());
+
+    if (filter.id) {
+      params = params.set('id', filter.id);
+    }
+
+    const response: any = await this.http
+      .get(`${this.diarioUrl}/filter`, { params })
+      .toPromise();
+
+    return {
+      diarios: response.content,
+      total: response.totalElements
+    };
+  }
 
 }

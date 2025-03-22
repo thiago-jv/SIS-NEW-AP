@@ -11,7 +11,6 @@ import apartamento.com.core.service.impl.DiarioService;
 import apartamento.com.gateway.client.kitnet.DiarioClient;
 import apartamento.com.web.handler.BusinnesException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 

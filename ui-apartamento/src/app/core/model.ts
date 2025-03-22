@@ -3,3 +3,9 @@ export class Diario {
     descricao?: string;
     dataRegistro?: Date
 }
+
+export class DiarioFilter {
+    id?: string;
+    pagina = 0;
+    intensPorPagina = 5;
+  }
