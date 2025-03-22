@@ -1,34 +1,77 @@
-<div class="container-fluid vh-100 d-flex align-items-cente">
-    
-    <form #form="ngForm" (ngSubmit)="save(form)" class="w-100">
-        
-        <h2 class="mb-3 text-center">{{ diario.id ? 'Editar Diário' : 'Criar Diário' }}</h2>
 
-        <div class="container">
-            <div class="col-12">
-                <div class="card p-4 shadow-lg">
-                    <div class="form-group mb-3">
-                        <label for="descricao" class="form-label">Descrição</label>
-                        <input id="descricao" class="form-control" type="text" name="descricao"
-                            placeholder="Digite a descrição" [(ngModel)]="diario.descricao" required>
+<form #form="ngForm" autocomplete="off" (ngSubmit)="save(form)">
+
+    <div class="container mt-4">
+        <div class="border rounded shadow bg-white p-4">
+
+            <h2 class="text-white text-center rounded p-3 mb-4"
+                style="background-color: teal;">
+                {{ diario.id ? 'Editar Diário' : 'Criar Diário'}}</h2>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="descricao"
+                            class="form-label fw-bold">Descrição</label>
+                        <textarea id="descricao" class="form-control"
+                            type="text"
+                            name="descricao"
+                            placeholder="Digite a descrição" rows="4"
+                            maxlength="90" minlength="1"
+                            [(ngModel)]="diario.descricao" #descricao="ngModel"
+                            required>    
+                        </textarea>
+
+                        <div
+                            *ngIf="descricao.errors && descricao.errors['required'] && descricao.touched"
+                            class="invalid-feedback d-block">
+                            Informe uma descrição.
+                        </div>
+
+                        <div
+                            *ngIf="descricao.errors && descricao.errors['minlength'] && descricao.touched"
+                            class="invalid-feedback d-block">
+                            Menos de 1 caractere.
+                        </div>
+
                     </div>
+                </div>
+            </div>
 
-                    <div class="form-group mb-3">
-                        <label for="dataRegistro" class="form-label">Data de Registro</label>
-                        <input id="dataRegistro" class="form-control" type="date" name="dataRegistro"
-                            [(ngModel)]="diario.dataRegistro" required>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="dataRegistro"
+                            class="form-label fw-bold">Data de
+                            Registro</label>
+                        <input id="dataRegistro" class="form-control"
+                            type="date"
+                            name="dataRegistro"
+                            [(ngModel)]="diario.dataRegistro"
+                            #dataRegistro="ngModel" required>
+
+                        <div
+                            *ngIf="dataRegistro.errors && dataRegistro.errors['required'] && dataRegistro.touched"
+                            class="invalid-feedback d-block">
+                            Informe uma data.
+                        </div>
                     </div>
+                </div>
+            </div>
 
+            <div class="row d-flex justify-content-between mt-4">
+                <div class="col-12">
                     <div class="d-flex justify-content-between">
-                        <button class="btn btn-secondary" type="button">Cancelar</button>
-                        <button class="btn btn-success" type="submit">
+                        <button class="btn btn-secondary"
+                            type="button" (click)="new(form)">Cancelar</button>
+                        <button class="btn btn-success" type="submit"
+                            [disabled]="form.invalid">
                             <i class="fas fa-save"></i> Salvar
                         </button>
                     </div>
                 </div>
             </div>
+
         </div>
-
-    </form>
-
-</div>
+    </div>
+</form>
