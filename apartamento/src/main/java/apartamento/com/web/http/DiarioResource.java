@@ -1,10 +1,13 @@
 package apartamento.com.web.http;
 
+import apartamento.com.common.http.dto.diario.DiarioFilter;
 import apartamento.com.common.http.dto.diario.DiarioPost;
 import apartamento.com.common.http.dto.diario.DiarioPut;
 import apartamento.com.common.http.dto.diario.DiarioResponse;
 import apartamento.com.core.service.impl.DiarioService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +51,12 @@ public class DiarioResource {
     public ResponseEntity<DiarioResponse> update(@PathVariable Long id, @RequestBody DiarioPut diarioPut){
         DiarioResponse diarioAtualizado = diarioService.update(diarioPut, id);
         return ResponseEntity.status(HttpStatus.OK).body(diarioAtualizado);
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<Page<DiarioResponse>> filter(DiarioFilter diarioFilter, Pageable pageable) {
+        Page<DiarioResponse> diarioPage = diarioService.filter(diarioFilter, pageable);
+        return ResponseEntity.status(HttpStatus.OK).body(diarioPage);
     }
 
 }

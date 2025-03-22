@@ -4,6 +4,8 @@ import apartamento.com.common.http.dto.diario.DiarioPost;
 import apartamento.com.common.http.dto.diario.DiarioPut;
 import apartamento.com.common.http.dto.diario.DiarioResponse;
 import apartamento.com.core.entity.Diario;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -34,6 +36,13 @@ public class DiarioMapper {
         diarioSave.setDescricao(diarioPut.descricao());
         diarioSave.setDataEntrada(diarioPut.dataRegistro());
         return diarioSave;
+    }
+
+    public Page<DiarioResponse> toPageDiarioResponse(Page<Diario> diarioPage) {
+        List<DiarioResponse> content = diarioPage.getContent().stream()
+                .map(this::toDiarioResponse)
+                .collect(Collectors.toList());
+        return new PageImpl<>(content, diarioPage.getPageable(), diarioPage.getTotalElements());
     }
 
 }

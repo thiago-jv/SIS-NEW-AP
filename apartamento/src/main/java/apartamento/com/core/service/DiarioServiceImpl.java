@@ -1,5 +1,6 @@
 package apartamento.com.core.service;
 
+import apartamento.com.common.http.dto.diario.DiarioFilter;
 import apartamento.com.common.http.dto.diario.DiarioPost;
 import apartamento.com.common.http.dto.diario.DiarioPut;
 import apartamento.com.common.http.dto.diario.DiarioResponse;
@@ -9,7 +10,11 @@ import apartamento.com.core.entity.Diario;
 import apartamento.com.core.service.impl.DiarioService;
 import apartamento.com.gateway.client.kitnet.DiarioClient;
 import apartamento.com.web.handler.BusinnesException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -60,6 +65,13 @@ public class DiarioServiceImpl implements DiarioService {
         Diario diario = diarioMapper.toDiario(diarioSave, diarioPut);
         DiarioResponse diarioResponse = diarioMapper.toDiarioResponse(diarioClient.update(diario));
         return diarioResponse;
+    }
+
+    @Override
+    public Page<DiarioResponse> filter(DiarioFilter diarioFilter, Pageable pageable) {
+        Page<Diario> diarioPage = diarioClient.filter(diarioFilter, pageable);
+        Page<DiarioResponse> diarioResponsePage = diarioMapper.toPageDiarioResponse(diarioPage);
+        return diarioResponsePage;
     }
 
 }
