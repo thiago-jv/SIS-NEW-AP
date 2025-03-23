@@ -10,6 +10,7 @@ import { NavigationEnd, Router } from '@angular/router'; // Para monitorar rotas
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { HandlerServiceService } from 'src/app/core/handler-service.service';
+import { Title } from '@angular/platform-browser';
 
 // Decorador Angular que define metadados do componente
 @Component({
@@ -38,7 +39,8 @@ export class DiarioListComponent implements OnInit {
   constructor(
     private diarioService: DiarioService, // Injeta serviço para consumir API
     private router: Router, // Injeta roteador Angular
-    private handler: HandlerServiceService
+    private handler: HandlerServiceService,
+    private title: Title
   ) {
     // Define o número de itens por página como padrão
     this.filters.intensPorPagina = 5;
@@ -46,6 +48,7 @@ export class DiarioListComponent implements OnInit {
 
   // === Ciclo de vida: onInit ===
   ngOnInit(): void {
+    this.title.setTitle('Lista diarios');
     // Executa filtro apenas se estiver na rota correta
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd && event.urlAfterRedirects === '/diario/list') {

@@ -10,6 +10,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 // Importa o RouterModule para permitir uso de diretivas de roteamento como routerLink
 import { RouterModule } from '@angular/router';
 import { HandlerServiceService } from './handler-service.service';
+import { Title } from '@angular/platform-browser';
 
 @NgModule({
   // declarations: Aqui declaramos os componentes, diretivas e pipes que pertencem a este módulo
@@ -28,7 +29,8 @@ import { HandlerServiceService } from './handler-service.service';
     NavbarComponent // Exporta a navbar para que fique disponível em outros módulos (ex: AppComponent)
   ],
   providers: [
-    HandlerServiceService
+    HandlerServiceService,
+    Title
   ]
 })
 

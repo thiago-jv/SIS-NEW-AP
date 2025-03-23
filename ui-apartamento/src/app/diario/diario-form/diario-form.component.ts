@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 // Biblioteca para exibir notificações visuais
 import Notiflix from 'notiflix';
 import { HandlerServiceService } from 'src/app/core/handler-service.service';
+import { Title } from '@angular/platform-browser';
 
 // Define os metadados do componente
 @Component({
@@ -31,13 +32,16 @@ export class DiarioFormComponent implements OnInit {
     private diarioService: DiarioService, // Serviço que lida com as chamadas HTTP
     private route: ActivatedRoute,         // Rota atual (usada para obter parâmetros da URL)
     private router: Router,                 // Serviço de navegação
-    private handler: HandlerServiceService
+    private handler: HandlerServiceService,
+    private title: Title
   ) { }
 
   // === Ciclo de vida do componente (executado ao inicializar) ===
   ngOnInit(): void {
     // Recupera o parâmetro 'id' da URL, se existir
     const idDiario = this.route.snapshot.params['id'];
+
+    this.title.setTitle('Novo diario')
 
     // Se existir um ID, significa que estamos em modo de edição
     if (idDiario) {
@@ -60,6 +64,7 @@ export class DiarioFormComponent implements OnInit {
     this.diarioService.findById(id)
       .then(diario => {
         this.diario = diario; // Preenche o formulário com os dados carregados
+        this.updateTitle();
       })
       .catch(erro => this.handler.handle(erro));
   }
@@ -70,6 +75,7 @@ export class DiarioFormComponent implements OnInit {
       .then(response => {
         Notiflix.Notify.success('Diário atualizado com sucesso!'); // Sucesso
         this.diario = this.diario; // Mantém o diário atual
+        this.updateTitle();
       })
       .catch(erro => this.handler.handle(erro)); // Loga o erro no console
   }
@@ -93,6 +99,10 @@ export class DiarioFormComponent implements OnInit {
   new(form: NgForm) {
     form.reset(); // Limpa o formulário
     this.router.navigate(['/diario/new']); // Navega para o modo novo
+  }
+
+  updateTitle(){
+    this.title.setTitle(`Edição de diario: ${this.diario.id}`);
   }
 
 }
