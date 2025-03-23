@@ -1,30 +1,56 @@
+// Importação de decorators e utilitários do Angular
 import { Component, EventEmitter, Output, Input, ViewChild, ElementRef } from '@angular/core';
 
+// Declaração global para usar a biblioteca Bootstrap JS
 declare var bootstrap: any;
+
 @Component({
-  selector: 'app-confirmation-modal',
-  templateUrl: './confirmation-modal.component.html',
-  styleUrls: ['./confirmation-modal.component.css']
+  selector: 'app-confirmation-modal', // Seletor HTML do componente
+  templateUrl: './confirmation-modal.component.html', // Caminho para o template HTML do modal
+  styleUrls: ['./confirmation-modal.component.css']   // Estilo do componente
 })
 export class ConfirmationModalComponent {
 
-  // @Input  -> permite receber valores dinamicos no componente como title
+  /**
+   * @Input() é um decorator do Angular que permite receber valores do componente pai.
+   * Aqui usamos para receber o título do modal dinamicamente.
+   * Exemplo: <app-confirmation-modal [title]="'Excluir Item'">
+   */
   @Input() title: string = 'Confirmação';
 
-  // @Input -> permite receber valores dinamicos no componente como title
+  /**
+   * Também um @Input() para a mensagem que será exibida no corpo do modal.
+   * Permite flexibilidade e reuso do componente.
+   */
   @Input() message: string = 'Tem certeza que deseja continuar?';
 
-  // ID dinâmico do modal
+  /**
+   * Este @Input define o ID HTML do modal. É usado para diferenciar instâncias
+   * quando há mais de um modal na aplicação.
+   */
   @Input() modalId!: string;
 
+  /**
+   * @ViewChild é uma diretiva Angular que permite acessar um elemento do DOM ou
+   * um componente filho diretamente no TypeScript.
+   * Aqui usamos a template reference #modalElement do HTML para acessar o DOM do modal.
+   */
   @ViewChild('modalElement') modalElementRef!: ElementRef;
- 
-  // @Output -> permite marcar uma propriedade que pode emitir eventos para fora do componente
-  @Output() confirmed = new EventEmitter<void>(); // Evento de confirmação
 
+  /**
+   * @Output é um decorator do Angular que permite emitir eventos para o componente pai.
+   * Esse EventEmitter será chamado quando o usuário clicar no botão "Confirmar".
+   * Exemplo de uso no pai: (confirmed)="executarAcao()"
+   */
+  @Output() confirmed = new EventEmitter<void>();
+
+  // Guarda a instância do modal do Bootstrap
   private modalInstance: any;
 
-  
+  /**
+   * Método público para abrir o modal.
+   * Ele usa a API do Bootstrap para criar e exibir o modal dinamicamente.
+   */
   openModal(): void {
     if (this.modalElementRef) {
       this.modalInstance = new bootstrap.Modal(this.modalElementRef.nativeElement);
@@ -32,15 +58,33 @@ export class ConfirmationModalComponent {
     }
   }
 
+  /**
+   * Método para fechar o modal.
+   * Também usa a API JavaScript do Bootstrap.
+   */
   closeModal(): void {
     if (this.modalInstance) {
       this.modalInstance.hide();
     }
   }
 
+  /**
+   * Método chamado ao clicar no botão "Confirmar".
+   * Emite o evento para o pai (confirmado) e fecha o modal.
+   */
   confirm(): void {
-    this.confirmed.emit(); // Emite um evento para o componente pai
-    this.closeModal();
+    this.confirmed.emit(); // Dispara o evento para o pai
+    this.closeModal();     // Fecha o modal após confirmar
   }
 
 }
+
+
+/* 
+
+@Component	 Define que esta classe é um componente Angular.
+@Input()	   Permite passar dados do componente pai para este componente.
+@Output()	   Permite emitir eventos para o componente pai.
+@ViewChild() Acessa um elemento do template HTML diretamente.
+
+*/

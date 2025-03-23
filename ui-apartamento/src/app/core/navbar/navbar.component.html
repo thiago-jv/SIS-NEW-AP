@@ -1,41 +1,93 @@
+<!--
+  Container principal com espaçamento superior (mt-4)
+-->
 <div class="container mt-4">
+
+  <!-- Card visual com borda, sombra e padding -->
   <div class="border rounded shadow bg-white p-3">
 
+    <!--
+      Barra de navegação principal (navbar)
+      navbar-expand-lg: Expande em telas maiores
+    -->
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
+        <!--
+          Botão que aparece em telas pequenas para abrir/fechar o menu colapsável
+          data-bs-toggle="collapse": atributo do Bootstrap para comportamento colapsável
+        -->
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
+        <!--
+          Menu que será colapsado em dispositivos menores
+          id="navbarSupportedContent" está referenciado no botão acima
+        -->
         <div class="collapse navbar-collapse mt-2 mt-lg-0" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
+            <!-- Link para a página inicial -->
             <li class="nav-item">
-              <a class="nav-link active fw-semibold" aria-current="page" href="#">Home</a>
+              <a class="nav-link active fw-semibold" aria-current="page" href="#">
+                Home
+              </a>
             </li>
 
-            <!-- Diário -->
+            <!-- =================== SEÇÃO DE DIÁRIO =================== -->
             <li class="nav-item dropdown">
+              <!--
+                Botão dropdown para Diário
+                data-bs-toggle="dropdown": ativa o comportamento de dropdown via Bootstrap
+              -->
               <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button"
                  data-bs-toggle="dropdown" aria-expanded="false">
                 Diário
               </a>
+
+              <!-- Lista de opções dentro do menu "Diário" -->
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" [routerLink]="['/diario/new']">Novo</a></li>
-                <li><a class="dropdown-item" [routerLink]="['/diario/list']">Listar</a></li>
+
+                <!--
+                  [routerLink]="['/diario/new']":
+                  Diretiva do Angular (property binding) que gera o link para a rota correspondente.
+                  Aqui ele redireciona para o componente de criação de diário.
+                -->
+                <li>
+                  <a class="dropdown-item" [routerLink]="['/diario/new']">
+                    Novo
+                  </a>
+                </li>
+
+                <!--
+                  [routerLink]="['/diario/list']":
+                  Vai para a página que lista os diários.
+                -->
+                <li>
+                  <a class="dropdown-item" [routerLink]="['/diario/list']">
+                    Listar
+                  </a>
+                </li>
               </ul>
             </li>
 
-            <!-- Apartamento -->
+            <!-- =================== SEÇÃO DE APARTAMENTO =================== -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button"
                  data-bs-toggle="dropdown" aria-expanded="false">
                 Apartamento
               </a>
               <ul class="dropdown-menu">
+                <!--
+                  Estes links são normais do HTML (sem Angular ainda).
+                  Você pode substituir por [routerLink] futuramente.
+                -->
                 <li><a class="dropdown-item" href="#">Novo</a></li>
                 <li><a class="dropdown-item" href="#">Listar</a></li>
               </ul>

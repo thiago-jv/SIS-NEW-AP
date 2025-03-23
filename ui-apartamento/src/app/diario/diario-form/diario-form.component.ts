@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 // Biblioteca para exibir notificações visuais
 import Notiflix from 'notiflix';
+import { HandlerServiceService } from 'src/app/core/handler-service.service';
 
 // Define os metadados do componente
 @Component({
@@ -29,7 +30,8 @@ export class DiarioFormComponent implements OnInit {
   constructor(
     private diarioService: DiarioService, // Serviço que lida com as chamadas HTTP
     private route: ActivatedRoute,         // Rota atual (usada para obter parâmetros da URL)
-    private router: Router                 // Serviço de navegação
+    private router: Router,                 // Serviço de navegação
+    private handler: HandlerServiceService
   ) { }
 
   // === Ciclo de vida do componente (executado ao inicializar) ===
@@ -50,9 +52,7 @@ export class DiarioFormComponent implements OnInit {
         Notiflix.Notify.success('Diário salvo com sucesso!'); // Mensagem de sucesso
         form.resetForm(); // Limpa o formulário
         this.diario = new Diario(); // Reseta a instância
-      }).catch((error => {
-        Notiflix.Notify.failure('Erro ao salvar o diário.'); // Mensagem de erro
-      }));
+      }).catch(erro => this.handler.handle(erro));
   }
 
   // === Busca diário por ID para edição ===
@@ -61,9 +61,7 @@ export class DiarioFormComponent implements OnInit {
       .then(diario => {
         this.diario = diario; // Preenche o formulário com os dados carregados
       })
-      .catch(error => {
-        Notiflix.Notify.failure('Erro ao carregar o diário.'); // Notifica erro se falhar
-      });
+      .catch(erro => this.handler.handle(erro));
   }
 
   // === Atualiza um diário existente ===
@@ -73,7 +71,7 @@ export class DiarioFormComponent implements OnInit {
         Notiflix.Notify.success('Diário atualizado com sucesso!'); // Sucesso
         this.diario = this.diario; // Mantém o diário atual
       })
-      .catch(error => console.log(error)); // Loga o erro no console
+      .catch(erro => this.handler.handle(erro)); // Loga o erro no console
   }
 
   // === Verifica se estamos editando ou criando ===

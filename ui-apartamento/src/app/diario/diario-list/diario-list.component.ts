@@ -9,6 +9,7 @@ import { NavigationEnd, Router } from '@angular/router'; // Para monitorar rotas
 // Importações do jsPDF e plugin para tabelas
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { HandlerServiceService } from 'src/app/core/handler-service.service';
 
 // Decorador Angular que define metadados do componente
 @Component({
@@ -36,7 +37,8 @@ export class DiarioListComponent implements OnInit {
 
   constructor(
     private diarioService: DiarioService, // Injeta serviço para consumir API
-    private router: Router // Injeta roteador Angular
+    private router: Router, // Injeta roteador Angular
+    private handler: HandlerServiceService
   ) {
     // Define o número de itens por página como padrão
     this.filters.intensPorPagina = 5;
@@ -64,7 +66,7 @@ export class DiarioListComponent implements OnInit {
         Notiflix.Notify.success('Diário deletado com sucesso!');
         this.filter(); // Atualiza a lista após exclusão
       })
-      .catch(error => console.log(error));
+      .catch(erro => this.handler.handle(erro));
   }
 
   // === Navega para a tela de edição ===
@@ -99,7 +101,7 @@ export class DiarioListComponent implements OnInit {
         this.totalPaginas = Math.ceil(this.totalRegistros / this.filters.intensPorPagina);
         this.paginas = Array.from({ length: this.totalPaginas }, (_, i) => i);
       })
-      .catch(erro => console.log(erro));
+      .catch(erro => this.handler.handle(erro));
   }
 
   // === Muda de página ===

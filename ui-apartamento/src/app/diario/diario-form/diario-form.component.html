@@ -1,77 +1,132 @@
-
+<!-- 
+  Diretiva ngForm: define que este formulário é gerenciado pelo Angular 
+  para validação e controle de estado (template-driven forms).
+-->
 <form #form="ngForm" autocomplete="off" (ngSubmit)="save(form)">
-
     <div class="container mt-4">
-        <div class="border rounded shadow bg-white p-4">
-
-            <h2 class="text-white text-center rounded p-3 mb-4"
-                style="background-color: teal;">
-                {{ diario.id ? 'Editar Diário' : 'Criar Diário'}}</h2>
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="form-group">
-                        <label for="descricao"
-                            class="form-label fw-bold">Descrição</label>
-                        <textarea id="descricao" class="form-control"
-                            type="text"
-                            name="descricao"
-                            placeholder="Digite a descrição" rows="4"
-                            maxlength="90" minlength="1"
-                            [(ngModel)]="diario.descricao" #descricao="ngModel"
-                            required>    
-                        </textarea>
-
-                        <div
-                            *ngIf="descricao.errors && descricao.errors['required'] && descricao.touched"
-                            class="invalid-feedback d-block">
-                            Informe uma descrição.
-                        </div>
-
-                        <div
-                            *ngIf="descricao.errors && descricao.errors['minlength'] && descricao.touched"
-                            class="invalid-feedback d-block">
-                            Menos de 1 caractere.
-                        </div>
-
-                    </div>
-                </div>
+      <div class="border rounded shadow bg-white p-4">
+  
+        <!-- Interpolação Angular: exibe um título dinâmico com base no ID -->
+        <h2 class="text-white text-center rounded p-3 mb-4"
+            style="background-color: teal;">
+          {{ diario.id ? 'Editar Diário' : 'Criar Diário' }}
+        </h2>
+  
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+  
+              <!-- 
+                Label comum HTML associado ao campo de descrição 
+              -->
+              <label for="descricao" class="form-label fw-bold">Descrição</label>
+  
+              <!-- 
+                [(ngModel)]: Two-way data binding. Liga a propriedade `diario.descricao` ao campo de texto.
+                name: nome do campo, obrigatório para ngModel funcionar em forms.
+                #descricao="ngModel": Template Reference Variable para acessar o estado do campo.
+                required: Validação HTML integrada ao Angular.
+                minlength / maxlength: validação de tamanho mínima e máxima.
+              -->
+              <textarea id="descricao"
+                        class="form-control"
+                        name="descricao"
+                        placeholder="Digite a descrição"
+                        rows="4"
+                        maxlength="90"
+                        minlength="1"
+                        [(ngModel)]="diario.descricao"
+                        #descricao="ngModel"
+                        required>    
+              </textarea>
+  
+              <!-- 
+                *ngIf: Diretiva estrutural Angular. Exibe erro se o campo estiver vazio e foi tocado.
+                descricao.errors: Objeto de erros do campo.
+                descricao.touched: Verdadeiro se o usuário já interagiu com o campo.
+              -->
+              <div *ngIf="descricao.errors?.required && descricao.touched"
+                   class="invalid-feedback d-block">
+                Informe uma descrição.
+              </div>
+  
+              <!-- Validação para erro de tamanho mínimo -->
+              <div *ngIf="descricao.errors?.minlength && descricao.touched"
+                   class="invalid-feedback d-block">
+                Menos de 1 caractere.
+              </div>
+  
             </div>
-
-            <div class="row">
-                <div class="col-12">
-                    <div class="form-group">
-                        <label for="dataRegistro"
-                            class="form-label fw-bold">Data de
-                            Registro</label>
-                        <input id="dataRegistro" class="form-control"
-                            type="date"
-                            name="dataRegistro"
-                            [(ngModel)]="diario.dataRegistro"
-                            #dataRegistro="ngModel" required>
-
-                        <div
-                            *ngIf="dataRegistro.errors && dataRegistro.errors['required'] && dataRegistro.touched"
-                            class="invalid-feedback d-block">
-                            Informe uma data.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row d-flex justify-content-between mt-4">
-                <div class="col-12">
-                    <div class="d-flex justify-content-between">
-                        <button class="btn btn-secondary"
-                            type="button" (click)="new(form)">Cancelar</button>
-                        <button class="btn btn-success" type="submit"
-                            [disabled]="form.invalid">
-                            <i class="fas fa-save"></i> Salvar
-                        </button>
-                    </div>
-                </div>
-            </div>
-
+          </div>
         </div>
+  
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label for="dataRegistro" class="form-label fw-bold">
+                Data de Registro
+              </label>
+  
+              <!-- 
+                Campo de data com binding e validação:
+                [(ngModel)]: liga à propriedade diario.dataRegistro.
+                name: nome do campo.
+                #dataRegistro="ngModel": referência ao controle para validações.
+                required: torna o campo obrigatório.
+              -->
+              <input id="dataRegistro"
+                     class="form-control"
+                     type="date"
+                     name="dataRegistro"
+                     [(ngModel)]="diario.dataRegistro"
+                     #dataRegistro="ngModel"
+                     required>
+  
+              <!-- Mensagem de erro se data estiver vazia e tocada -->
+              <div *ngIf="dataRegistro.errors?.required && dataRegistro.touched"
+                   class="invalid-feedback d-block">
+                Informe uma data.
+              </div>
+  
+            </div>
+          </div>
+        </div>
+  
+        <!-- Botões -->
+        <div class="row d-flex justify-content-between mt-4">
+          <div class="col-12">
+            <div class="d-flex justify-content-between">
+              
+              <!-- 
+                (click): Binding de evento que chama o método new() no component.
+                type="button": evita submissão do formulário.
+              -->
+              <button class="btn btn-secondary" type="button" (click)="new(form)">
+                Cancelar
+              </button>
+  
+              <!-- 
+                Botão de envio do formulário.
+                [disabled]="form.invalid": propriedade ligada ao estado do formulário, desativa se inválido.
+              -->
+              <button class="btn btn-success" type="submit" [disabled]="form.invalid">
+                <i class="fas fa-save"></i> Salvar
+              </button>
+  
+            </div>
+          </div>
+        </div>
+  
+      </div>
     </div>
-</form>
+  </form>
+  
+  <!--
+  ngForm	                Diretiva que transforma o form em um form Angular com validação.
+  [(ngModel)]	            Two-way data binding para sincronizar model e view.
+  #form="ngForm"	        Referência ao form para acessar seu estado.
+  #descricao="ngModel" 	    Referência ao controle do campo.
+  *ngIf	Diretiva estrutural para exibir elementos condicionalmente.
+  (ngSubmit)="save(form)"	Binding de evento para submissão.
+  [disabled]="form.invalid"	Binding de propriedade para desabilitar botão com base na validade.
+  -->
