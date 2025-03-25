@@ -7,6 +7,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 // Importa as interfaces ou classes de modelo para Diário e Filtro
 import { Diario, DiarioFilter } from '../core/model';
 
+import { AUTH_CONFIG } from '../core/auth.config';
+
 @Injectable({
   providedIn: 'root' // Torna o serviço disponível em toda a aplicação
 })
@@ -18,30 +20,37 @@ export class DiarioService {
   // Injeta o HttpClient para fazer chamadas HTTP
   constructor(private http: HttpClient) { }
 
+  private getAuthHeaders(): HttpHeaders {
+    const auth = btoa(`${AUTH_CONFIG.username}:${AUTH_CONFIG.password}`);
+  
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Basic ${auth}`
+    });
+  }
+
   // Método para criar um novo diário (POST)
   create(diario: Diario): Promise<Diario> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' }); // Define o tipo do conteúdo
-    return this.http.post<Diario>(this.diarioUrl, diario, { headers }).toPromise(); // Retorna uma Promise
+    return this.http.post<Diario>(this.diarioUrl, diario, { headers: this.getAuthHeaders() }).toPromise(); // Retorna uma Promise
   }
 
   // Método para atualizar um diário existente (PUT)
   update(diario: Diario): Promise<Diario> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' }); // Define os headers
-    return this.http.put<Diario>(`${this.diarioUrl}/${diario.id}`, diario, { headers }).toPromise(); // Requisição PUT
+    return this.http.put<Diario>(`${this.diarioUrl}/${diario.id}`, diario, { headers: this.getAuthHeaders() }).toPromise(); // Requisição PUT
   }
 
   // Método para buscar todos os diários (GET)
   async findAll(): Promise<Diario[]> {
-    const response = await this.http.get<Diario[]>(`${this.diarioUrl}`, {
-      responseType: 'json' // Define o tipo de resposta
-    }).toPromise();
+    const response = await this.http.get<Diario[]>(`${this.diarioUrl}`, { headers: this.getAuthHeaders(), responseType: 'json' }).toPromise();
 
     return response ?? []; // Retorna a lista ou array vazio se for null
   }
 
   // Método para deletar um diário por ID (DELETE)
   delete(id: number): Promise<void> {
-    return this.http.delete(`${this.diarioUrl}/${id}`).toPromise()
+    return this.http.delete(`${this.diarioUrl}/${id}`, { headers: this.getAuthHeaders() }).toPromise()
       .then(response => {}) // Não retorna nada
       .catch(error => {
         console.log("Erro ao processar sua requisição");
@@ -50,7 +59,7 @@ export class DiarioService {
 
   // Método para buscar um diário por ID (GET)
   findById(id: number): Promise<Diario> {
-    return this.http.get<Diario>(`${this.diarioUrl}/${id}`).toPromise(); // Retorna o objeto Diário
+    return this.http.get<Diario>(`${this.diarioUrl}/${id}`, { headers: this.getAuthHeaders() }).toPromise(); // Retorna o objeto Diário
   }
 
   // Método para filtrar os diários com paginação (GET + query params)
@@ -67,7 +76,7 @@ export class DiarioService {
 
     // Faz a requisição GET com os parâmetros
     const response: any = await this.http
-      .get(`${this.diarioUrl}/filter`, { params })
+      .get(`${this.diarioUrl}/filter`, { headers: this.getAuthHeaders(), params })
       .toPromise();
 
     // Retorna a lista de diários e o total de registros

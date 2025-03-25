@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -27,33 +28,39 @@ public class DiarioResource {
     }
 
     @PostMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DiarioResponse> create(@RequestBody DiarioPost diarioPost) {
         return ResponseEntity.status(HttpStatus.CREATED).body(diarioService.create(diarioPost));
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<List<DiarioResponse>> listAll() {
         return ResponseEntity.status(HttpStatus.OK).body(diarioService.findAll());
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public void remove(@PathVariable Long id){
        diarioService.remove(id);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DiarioResponse> findById(@PathVariable Long id) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(diarioService.findById(id));
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<DiarioResponse> update(@PathVariable Long id, @RequestBody DiarioPut diarioPut){
         DiarioResponse diarioAtualizado = diarioService.update(diarioPut, id);
         return ResponseEntity.status(HttpStatus.OK).body(diarioAtualizado);
     }
 
     @GetMapping("/filter")
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Page<DiarioResponse>> filter(DiarioFilter diarioFilter, Pageable pageable) {
         Page<DiarioResponse> diarioPage = diarioService.filter(diarioFilter, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(diarioPage);
