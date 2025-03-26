@@ -9,14 +9,19 @@ const routes: Routes = [
 
   // Rota para o módulo de Diário utilizando carregamento preguiçoso (lazy loading)
   // Isso melhora o desempenho, pois o módulo só será carregado quando o caminho "diario" for acessado
-  {
-    path: 'diario',
-    loadChildren: () => import('./diario/diario.module').then(m => m.DiarioModule)
-    // O Angular busca o arquivo diario.module.ts, carrega e utiliza a classe DiarioModule
-  }
-
-  // Outras rotas principais da aplicação podem ser adicionadas aqui
-];
+    {
+      path: 'diario',
+      loadChildren: () => import('./diario/diario.module').then(m => m.DiarioModule)
+    },
+    {
+      path: 'predio',
+      loadChildren: () => import('./predio/predio.module').then(m => m.PredioModule)
+    },
+    {
+      path: 'apartamento',
+      loadChildren: () => import('./apartamento/apartamento.module').then(m => m.ApartamentoModule)
+    }
+  ];
 
 // Decorador que define o módulo de roteamento principal da aplicação
 @NgModule({

@@ -77,21 +77,79 @@
               </ul>
             </li>
 
-            <!-- =================== SEÇÃO DE APARTAMENTO =================== -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button"
-                 data-bs-toggle="dropdown" aria-expanded="false">
-                Apartamento
-              </a>
-              <ul class="dropdown-menu">
-                <!--
-                  Estes links são normais do HTML (sem Angular ainda).
-                  Você pode substituir por [routerLink] futuramente.
-                -->
-                <li><a class="dropdown-item" href="#">Novo</a></li>
-                <li><a class="dropdown-item" href="#">Listar</a></li>
-              </ul>
-            </li>
+           <!-- =================== SEÇÃO DE PREDIO =================== -->
+           <li class="nav-item dropdown">
+            <!--
+              Botão dropdown para Predio
+              data-bs-toggle="dropdown": ativa o comportamento de dropdown via Bootstrap
+            -->
+            <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+              Predio
+            </a>
+
+            <!-- Lista de opções dentro do menu "Predio" -->
+            <ul class="dropdown-menu">
+
+              <!--
+                [routerLink]="['/diario/new']":
+                Diretiva do Angular (property binding) que gera o link para a rota correspondente.
+                Aqui ele redireciona para o componente de criação de predio.
+              -->
+              <li>
+                <a class="dropdown-item" [routerLink]="['/predio/new']">
+                  Novo
+                </a>
+              </li>
+
+              <!--
+                [routerLink]="['/predio/list']":
+                Vai para a página que lista os predios.
+              -->
+              <li>
+                <a class="dropdown-item" [routerLink]="['/predio/list']">
+                  Listar
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- =================== SEÇÃO DE APARTAMENTO =================== -->
+          <li class="nav-item dropdown">
+            <!--
+              Botão dropdown para apartamento
+              data-bs-toggle="dropdown": ativa o comportamento de dropdown via Bootstrap
+            -->
+            <a class="nav-link dropdown-toggle fw-semibold" href="#" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+              Apartamento
+            </a>
+
+            <!-- Lista de opções dentro do menu "apartamento" -->
+            <ul class="dropdown-menu">
+
+              <!--
+                [routerLink]="['/apartamento/new']":
+                Diretiva do Angular (property binding) que gera o link para a rota correspondente.
+                Aqui ele redireciona para o componente de criação de apartamento.
+              -->
+              <li>
+                <a class="dropdown-item" [routerLink]="['/apartamento/new']">
+                  Novo
+                </a>
+              </li>
+
+              <!--
+                [routerLink]="['/apartamento/list']":
+                Vai para a página que lista os apartamentos.
+              -->
+              <li>
+                <a class="dropdown-item" [routerLink]="['/apartamento/list']">
+                  Listar
+                </a>
+              </li>
+            </ul>
+          </li>
 
           </ul>
         </div>

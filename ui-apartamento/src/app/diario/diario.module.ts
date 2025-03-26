@@ -36,7 +36,8 @@ import { SharedModule } from '../shared/shared.module';
 
   // Exporta o componente DiarioFormComponent caso seja necessário em outros módulos
   exports: [
-    DiarioFormComponent
+    DiarioFormComponent,
+    DiarioListComponent
   ]
 })
 

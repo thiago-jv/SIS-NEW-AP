@@ -45,7 +45,14 @@ public class Apartamento implements Serializable {
 	private Predio predio;
 
 	public Apartamento() {
+	}
 
+	public Apartamento(String numeroApartamento, String descricao, String medidor, String statusApartamento, Predio predio) {
+		this.numeroApartamento = numeroApartamento;
+		this.descricao = descricao;
+		this.medidor = medidor;
+		this.statusApartamento = statusApartamento;
+		this.predio = predio;
 	}
 
 	public Long getId() {

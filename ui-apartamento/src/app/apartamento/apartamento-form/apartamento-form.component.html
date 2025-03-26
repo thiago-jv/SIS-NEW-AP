@@ -1,0 +1,98 @@
+<form #form="ngForm" autocomplete="off" (ngSubmit)="save(form)">
+  <div class="container mt-4">
+    <div class="border rounded shadow bg-white p-4">
+
+      <h2 class="text-white text-center rounded p-3 mb-4" style="background-color: teal;">
+        {{ apartamento.id ? 'Editar Apartamento' : 'Criar Apartamento' }}
+      </h2>
+
+      <div class="row">
+        <div class="col-2">
+          <div class="form-group">
+            <label for="numeroApartamento" class="form-label fw-bold">Número</label>
+            <input id="numeroApartamento" class="form-control" name="numeroApartamento"
+              placeholder="Digite um número" [(ngModel)]="apartamento.numeroApartamento"
+              #numeroApartamento="ngModel" required>
+            <div *ngIf="numeroApartamento.errors?.required && numeroApartamento.touched"
+              class="invalid-feedback d-block">
+              Informe um numero.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+            <label for="descricao" class="form-label fw-bold">descricao</label>
+            <input id="descricao" class="form-control" name="descricao"
+              placeholder="Digite a descrição" [(ngModel)]="apartamento.descricao"
+              #descricao="ngModel" required>
+            <div *ngIf="descricao.errors?.required && descricao.touched"
+              class="invalid-feedback d-block">
+              Informe uma descricao.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4">
+          <div class="form-group">
+            <label for="statusApartamento" class="form-label fw-bold">Status</label>
+            <input id="statusApartamento" class="form-control" name="statusApartamento"
+              placeholder="Digite um status" [(ngModel)]="apartamento.statusApartamento"
+              #statusApartamento="ngModel" required>
+            <div *ngIf="statusApartamento.errors?.required && statusApartamento.touched"
+              class="invalid-feedback d-block">
+              Informe um status.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-2">
+          <div class="form-group">
+            <label for="medidor" class="form-label fw-bold">Medidor</label>
+            <input id="medidor" class="form-control" name="medidor"
+              placeholder="Digite um status" [(ngModel)]="apartamento.medidor"
+              #medidor="ngModel" required>
+            <div *ngIf="medidor.errors?.required && medidor.touched"
+              class="invalid-feedback d-block">
+              Informe um status.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-10">
+          <div class="form-group">
+            <label for="predio" class="form-label fw-bold">Predio</label>
+            <select id="predio" class="form-control" name="predio"
+              [(ngModel)]="apartamento.predio" #predio="ngModel" required>
+              <option [ngValue]="null" disabled>Selecione um prédio</option>
+              <option *ngFor="let p of predios" [ngValue]="p">
+                {{ p.descricao }}
+              </option>
+            </select>
+            <div *ngIf="predio.errors?.required && predio.touched"
+              class="invalid-feedback d-block">
+              Informe um predio.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row d-flex justify-content-between mt-4">
+        <div class="col-12">
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-secondary" type="button" (click)="new(form)">
+              Cancelar
+            </button>
+
+            <button class="btn btn-success" type="submit" [disabled]="form.invalid">
+              <i class="fas fa-save"></i> Salvar
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>

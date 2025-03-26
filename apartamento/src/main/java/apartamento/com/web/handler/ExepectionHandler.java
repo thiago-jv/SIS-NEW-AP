@@ -12,11 +12,11 @@ import java.util.List;
 @ControllerAdvice
 public class ExepectionHandler {
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handlerAllExeception(Exception exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body("Erro ao processar sua solicitação. Por favor, tente em alguns instantes");
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<String> handlerAllExeception(Exception exception) {
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//                .body("Erro ao processar sua solicitação. Por favor, tente em alguns instantes");
+//    }
 
     @ExceptionHandler(AccessDeniedException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
