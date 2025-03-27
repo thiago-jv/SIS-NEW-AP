@@ -34,7 +34,7 @@
                         placeholder="Digite a descrição"
                         rows="4"
                         maxlength="90"
-                        minlength="1"
+                        minlength="2"
                         [(ngModel)]="diario.descricao"
                         #descricao="ngModel"
                         required>    
@@ -45,16 +45,14 @@
                 descricao.errors: Objeto de erros do campo.
                 descricao.touched: Verdadeiro se o usuário já interagiu com o campo.
               -->
-              <div *ngIf="descricao.errors?.required && descricao.touched"
-                   class="invalid-feedback d-block">
+              <div *ngIf="descricao.errors?.required && descricao.touched" class="invalid-feedback d-block">
                 Informe uma descrição.
               </div>
   
-              <!-- Validação para erro de tamanho mínimo -->
-              <div *ngIf="descricao.errors?.minlength && descricao.touched"
-                   class="invalid-feedback d-block">
-                Menos de 1 caractere.
-              </div>
+             <!-- Validação para erro de tamanho mínimo -->
+            <div *ngIf="descricao.errors?.minlength && descricao.touched" class="invalid-feedback d-block">
+              A descrição deve ter pelo menos {{ descricao.errors?.minlength.requiredLength }} caracteres.
+            </div>
   
             </div>
           </div>

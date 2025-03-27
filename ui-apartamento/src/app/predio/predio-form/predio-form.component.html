@@ -9,16 +9,15 @@
           <div class="col-6">
             <label for="descricao" class="form-label fw-bold">Descrição</label>
             <input id="descricao" name="descricao" class="form-control" placeholder="Digite a descrição"
-              [(ngModel)]="predio.descricao" #descricao="ngModel" required minlength="1" maxlength="90">
+              [(ngModel)]="predio.descricao" #descricao="ngModel" required minlength="2" maxlength="90">
 
-            <div *ngIf="descricao.invalid && descricao.touched" class="invalid-feedback d-block">
+            <div *ngIf="descricao.errors?.required && descricao.touched" class="invalid-feedback d-block">
               Descrição é obrigatória.
             </div>
 
-             <div *ngIf="descricao.errors?.minlength && descricao.touched"
-             class="invalid-feedback d-block">
-          Menos de 1 caractere.
-        </div>
+             <div *ngIf="descricao.errors?.minlength && descricao.touched" class="invalid-feedback d-block">
+              A descrição deve ter pelo menos {{ descricao.errors?.minlength.requiredLength }} caracteres.
+            </div>
 
           </div>
   
@@ -27,7 +26,7 @@
             <input id="cep" name="cep" class="form-control" placeholder="Digite o CEP"
               [(ngModel)]="predio.cep" #cep="ngModel" required minlength="1" maxlength="10">
             
-              <div *ngIf="cep.invalid && cep.touched" class="invalid-feedback d-block">
+              <div *ngIf="cep.errors?.required && cep.touched" class="invalid-feedback d-block">
               CEP é obrigatório.
             </div>
 
@@ -38,7 +37,7 @@
             <input id="numero" name="numero" class="form-control" placeholder="Digite o número"
               [(ngModel)]="predio.numero" #numero="ngModel" required minlength="1">
 
-              <div *ngIf="numero.invalid && numero.touched" class="invalid-feedback d-block">
+              <div *ngIf="numero.errors?.required && numero.touched" class="invalid-feedback d-block">
                 Número é obrigatório.
               </div>
 
