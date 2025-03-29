@@ -2,22 +2,18 @@
   <div class="container mt-4">
     <div class="border rounded shadow bg-white p-4">
 
-      <h2 class="text-white text-center rounded p-3 mb-4" style="background-color: teal;">
+      <h2 class="text-white text-center rounded p-3 mb-4" style="background-color: #16a085;">
         Lista de Apartamento
       </h2>
 
       <div class="row">
-        <div class="col-12">
+        <div class="col-md-6">
           <label for="id" class="form-label fw-bold">Id</label>
-          <input type="text"
-                 id="id"
-                 name="id"
-                 class="form-control"
-                 [(ngModel)]="filters.id">
+          <input type="text" id="id" name="id" class="form-control" [(ngModel)]="filters.id">
         </div>
       </div>
 
-      <div class="row">
+      <div class="row mb-4">
         <div class="col-12 text-start">
           <button type="submit" class="btn btn-primary">
             <i class="fas fa-search"></i> Pesquisar
@@ -46,16 +42,13 @@
               </td>
               <td>
                 <div class="d-flex gap-2 justify-content-start flex-wrap">
-                  <button type="button" class="btn btn-danger btn-sm"
-                          (click)="openDeleteModal(apartamento)">
+                  <button type="button" class="btn btn-danger btn-sm" (click)="openDeleteModal(apartamento)">
                     <i class="fas fa-trash-alt"></i> Excluir
                   </button>
-                  <button type="button" class="btn btn-primary btn-sm"
-                          (click)="openEditModal(apartamento)">
+                  <button type="button" class="btn btn-primary btn-sm" (click)="openEditModal(apartamento)">
                     <i class="fas fa-edit"></i> Editar
                   </button>
-                  <button type="button" class="btn btn-outline-danger btn-sm"
-                          (click)="gerarPdf(apartamento)">
+                  <button type="button" class="btn btn-outline-danger btn-sm" (click)="gerarPdf(apartamento)">
                     <i class="fas fa-file-pdf"></i> PDF
                   </button>
                 </div>
@@ -77,22 +70,17 @@
       <nav *ngIf="totalPaginas > 1" class="mt-3">
         <ul class="pagination justify-content-center">
           <li class="page-item" [class.disabled]="paginaAtual === 0">
-            <button type="button" class="page-link"
-                    (click)="irParaPagina(paginaAtual - 1)">
+            <button type="button" class="page-link" (click)="irParaPagina(paginaAtual - 1)">
               Anterior
             </button>
           </li>
-          <li class="page-item"
-              *ngFor="let pagina of paginas"
-              [class.active]="pagina === paginaAtual">
-            <button type="button" class="page-link"
-                    (click)="irParaPagina(pagina)">
+          <li class="page-item" *ngFor="let pagina of paginas" [class.active]="pagina === paginaAtual">
+            <button type="button" class="page-link" (click)="irParaPagina(pagina)">
               {{ pagina + 1 }}
             </button>
           </li>
           <li class="page-item" [class.disabled]="paginaAtual >= totalPaginas - 1">
-            <button type="button" class="page-link"
-                    (click)="irParaPagina(paginaAtual + 1)">
+            <button type="button" class="page-link" (click)="irParaPagina(paginaAtual + 1)">
               Próxima
             </button>
           </li>

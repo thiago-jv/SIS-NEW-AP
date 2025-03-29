@@ -43,3 +43,41 @@ export class ApartamentoFilter {
     intensPorPagina = 5;
 }
 
+export class Inquilino {
+    id?: number;
+    nome?: string;
+    nomeAbreviado?: string;
+    email?: string;
+    contato?: number;
+    status?: string;
+    genero?: string;
+    cpf?: string;
+}
+
+export class InquilinoFilter {
+    cpf?: string;
+    pagina = 0;
+    intensPorPagina = 5;
+}
+
+export class Valor {
+    id?: number;
+    valor?: string;
+}
+
+export class Cep {
+    cep?: string
+    logradouro?: string
+    complemento?: string
+    unidade?: string
+    bairro?: string
+    localidade?: string
+    uf?: string
+    estado?: string
+    regiao?: string
+    ibge?: string
+    gia?: string
+    ddd?: string
+    siafi?: string
+  }
+

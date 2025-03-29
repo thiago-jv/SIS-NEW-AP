@@ -8,17 +8,17 @@ import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
-    PredioFormComponent, 
+    PredioFormComponent,
     PredioListComponent
   ],
   imports: [
-    FormsModule,             // Permite o uso de formulários reativos com [(ngModel)], validações, etc.
-    CommonModule,            // Importa recursos comuns do Angular como *ngIf, *ngFor, etc.
-    PredioRoutingModule,     // Importa as rotas definidas para este módulo
-    SharedModule             // Importa componentes reutilizáveis como modal de confirmação
+    FormsModule,
+    CommonModule,
+    PredioRoutingModule,
+    SharedModule
   ],
   exports: [
-    PredioFormComponent, 
+    PredioFormComponent,
     PredioListComponent
   ]
 })

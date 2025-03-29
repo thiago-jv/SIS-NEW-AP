@@ -3,11 +3,11 @@ import { Apartamento, ApartamentoFilter } from 'src/app/core/model';
 import { ConfirmationModalComponent } from 'src/app/shared/confirmation-modal/confirmation-modal.component';
 import { ApartamentoService } from '../apartamento.service';
 import { NavigationEnd, Router } from '@angular/router';
-import { HandlerServiceService } from 'src/app/core/handler-service.service';
 import { Title } from '@angular/platform-browser';
 import Notiflix from 'notiflix';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { HandlerService } from 'src/app/core/handler.service';
 
 @Component({
   selector: 'app-apartamento-list',
@@ -33,7 +33,7 @@ export class ApartamentoListComponent implements OnInit {
   constructor(
     private apartamentoService: ApartamentoService,
     private router: Router,
-    private handler: HandlerServiceService,
+    private handler: HandlerService,
     private title: Title
   ) {
     this.filters.intensPorPagina = 5;

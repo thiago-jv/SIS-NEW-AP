@@ -1,77 +1,26 @@
-<!-- 
-  Modal de Confirmação (componente reutilizável)
-  Diretiva Angular: #modalElement -> Template reference variable usada para manipulação do modal no componente TypeScript.
-  Atributo [id] -> Property Binding Angular que vincula a variável 'modalId' dinamicamente.
--->
-<div class="modal fade" 
-     #modalElement 
-     [id]="modalId" 
-     tabindex="-1" 
-     aria-labelledby="confirmModalLabel" 
+<div class="modal fade"
+     #modalElement
+     [id]="modalId"
+     tabindex="-1"
+     aria-labelledby="confirmModalLabel"
      aria-hidden="true">
 
-  <!-- 
-    modal-dialog: classe Bootstrap que define o container do modal 
-  -->
   <div class="modal-dialog">
-    
-    <!-- 
-      modal-content: classe Bootstrap para o conteúdo do modal 
-      border, rounded, shadow, bg-white, p-4: utilitários Bootstrap para borda, arredondamento, sombra, fundo branco e padding
-    -->
     <div class="modal-content border rounded shadow bg-white p-4">
-
-      <!-- 
-        Título do modal 
-        Usamos o id confirmModalLabel referenciado na aria-labelledby
-        {{ title }} -> Interpolação Angular (data binding unidirecional) que exibe o valor da variável 'title'
-      -->
       <h5 class="text-white text-center rounded p-3 mb-4"
-          style="background-color: teal;" 
+          style="background-color: teal;"
           id="confirmModalLabel">
         {{ title }}
       </h5>
-
-      <!-- 
-        Corpo do modal com a mensagem 
-        {{ message }} -> Interpolação Angular que exibe o valor da variável 'message'
-      -->
       <div class="modal-body">
         {{ message }}
       </div>
-
-      <!-- 
-        Rodapé do modal com botões de ação 
-        d-flex / justify-content-between -> utilitários Bootstrap para alinhamento horizontal
-      -->
       <div class="modal-footer d-flex justify-content-between">
-        
-        <!-- 
-          Botão "Cancelar" 
-          (click)="closeModal()" -> Event binding do Angular. Ao clicar, executa o método closeModal() no componente.
-        -->
         <button type="button" class="btn btn-secondary"
                 (click)="closeModal()">Cancelar</button>
-
-        <!-- 
-          Botão "Confirmar" 
-          (click)="confirm()" -> Event binding do Angular. Ao clicar, executa o método confirm() no componente.
-        -->
         <button type="button" class="btn btn-danger"
                 (click)="confirm()">Confirmar</button>
       </div>
-
     </div>
   </div>
 </div>
-
-
-<!-- 
-
-Angular	                     
-{{ title }} e {{ message }}	 Interpolação	Título e mensagem do modal	->  Exibe os valores das variáveis
-[id]="modalId"            	 Property Binding	                        ->  Atribui dinamicamente o id do modal	
-#modalElement	               Template Reference	Referência para usar o modal no TS (ex: ViewChild)	
-(click)="..."	               Event Binding	Botões de ação	           -> Executa métodos do componente ao clicar
-
--->

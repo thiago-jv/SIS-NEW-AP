@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Apartamento, Predio } from 'src/app/core/model';
 import { ApartamentoService } from '../apartamento.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HandlerServiceService } from 'src/app/core/handler-service.service';
 import { Title } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
 import Notiflix from 'notiflix';
 import { PredioService } from 'src/app/predio/predio.service';
+import { HandlerService } from 'src/app/core/handler.service';
 
 @Component({
   selector: 'app-apartamento-form',
@@ -22,7 +22,7 @@ export class ApartamentoFormComponent implements OnInit {
     private apartamentoService: ApartamentoService,
     private route: ActivatedRoute,
     private router: Router,
-    private handler: HandlerServiceService,
+    private handler: HandlerService,
     private title: Title,
     private predioService: PredioService
   ) { }

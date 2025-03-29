@@ -1,0 +1,63 @@
+<form #form="ngForm" autocomplete="off" (ngSubmit)="save(form)">
+  <div class="container mt-4">
+    <div class="border rounded shadow bg-white p-4">
+      <h2
+        class="text-white text-center rounded p-3 mb-4"
+        style="background-color: #16a085; font-size: 1.5rem; font-weight: 500"
+      >
+        {{ valor.id ? "Editar Valor" : "Criar Valor" }}
+      </h2>
+
+      <div class="row">
+        <div class="col-6 text-start">
+          <div class="form-group">
+            <label for="valor" class="form-label fw-bold">Valor</label>
+            <input
+              id="valor"
+              class="form-control text-start"
+              name="valor"
+              placeholder="Digite um valor"
+              [(ngModel)]="valor.valor"
+              #valorField="ngModel"
+              currencyMask
+              [options]="{
+                prefix: 'R$',
+                thousands: '.',
+                decimal: ',',
+                precision: 2
+              }"
+              maxlength="10"
+              required
+              type="text"
+            />
+
+            <div
+              *ngIf="valorField.errors?.required && valorField.touched"
+              class="invalid-feedback d-block"
+            >
+              Informe um valor.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row d-flex justify-content-between mt-4">
+        <div class="col-12">
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-secondary" type="button" (click)="new(form)">
+              Cancelar
+            </button>
+
+            <button
+              class="btn btn-success"
+              type="submit"
+              [disabled]="form.invalid"
+            >
+              <i class="fas fa-save"></i> Salvar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,13 +1,11 @@
-// Importação de decorators e utilitários do Angular
 import { Component, EventEmitter, Output, Input, ViewChild, ElementRef } from '@angular/core';
 
-// Declaração global para usar a biblioteca Bootstrap JS
 declare var bootstrap: any;
 
 @Component({
-  selector: 'app-confirmation-modal', // Seletor HTML do componente
-  templateUrl: './confirmation-modal.component.html', // Caminho para o template HTML do modal
-  styleUrls: ['./confirmation-modal.component.css']   // Estilo do componente
+  selector: 'app-confirmation-modal',
+  templateUrl: './confirmation-modal.component.html',
+  styleUrls: ['./confirmation-modal.component.css']
 })
 export class ConfirmationModalComponent {
 
@@ -78,13 +76,3 @@ export class ConfirmationModalComponent {
   }
 
 }
-
-
-/* 
-
-@Component	 Define que esta classe é um componente Angular.
-@Input()	   Permite passar dados do componente pai para este componente.
-@Output()	   Permite emitir eventos para o componente pai.
-@ViewChild() Acessa um elemento do template HTML diretamente.
-
-*/

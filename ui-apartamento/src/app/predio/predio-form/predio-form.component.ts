@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Predio } from 'src/app/core/model';
+import { Cep, Predio } from 'src/app/core/model';
 import { PredioService } from '../predio.service';
-import { HandlerServiceService } from 'src/app/core/handler-service.service';
 import { Title } from '@angular/platform-browser';
 import Notiflix from 'notiflix';
+import { ViaCepService } from 'src/app/core/viacep.service';
+import { HandlerService } from 'src/app/core/handler.service';
 
 @Component({
   selector: 'app-predio-form',
@@ -17,9 +18,10 @@ export class PredioFormComponent implements OnInit {
   predio: Predio = new Predio;
 
   constructor(
+    private viaCep: ViaCepService,
     private predioService: PredioService,
     private route: ActivatedRoute,
-    private handler: HandlerServiceService,
+    private handler: HandlerService,
     private router: Router,
     private title: Title
   ) { }
@@ -80,4 +82,29 @@ export class PredioFormComponent implements OnInit {
     this.title.setTitle(`Edição de predio: ${this.predio.id}`);
   }
 
+  validateCep(): void {
+    if (this.predio.cep && this.predio.cep.length === 8) {
+      this.searchCep();
+    }
+  }
+
+  searchCep(): void {
+    if (this.predio.cep && this.predio.cep.length === 8) {
+      this.viaCep.getByCep(this.predio.cep)
+        .then((cepData: any) => {
+          if (cepData.erro) {
+            Notiflix.Notify.failure('CEP não encontrado');
+          } else {
+            this.predio.logradouro = cepData.logradouro || '';
+            this.predio.bairro = cepData.bairro || '';
+            this.predio.localidade = cepData.localidade || '';
+            this.predio.uf = cepData.uf || '';
+          }
+        })
+        .catch(() => {
+          Notiflix.Notify.failure('Erro ao consultar o CEP');
+        });
+    }
+  }
+  
 }

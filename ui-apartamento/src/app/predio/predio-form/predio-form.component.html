@@ -1,93 +1,90 @@
 <form #form="ngForm" autocomplete="off" (ngSubmit)="save(form)">
-    <div class="container mt-4">
-      <div class="border rounded shadow bg-white p-4">
-        <h2 class="text-white text-center rounded p-3 mb-4" style="background-color: teal;">
-          {{ predio.id ? 'Editar Prédio' : 'Criar Prédio' }}
-        </h2>
-  
-        <div class="row">
-          <div class="col-6">
-            <label for="descricao" class="form-label fw-bold">Descrição</label>
-            <input id="descricao" name="descricao" class="form-control" placeholder="Digite a descrição"
-              [(ngModel)]="predio.descricao" #descricao="ngModel" required minlength="2" maxlength="90">
+  <div class="container mt-4">
+    <div class="border rounded shadow bg-white p-4">
+      <h2 class="text-white text-center rounded p-3 mb-4" style="background-color: teal;">
+        {{ predio.id ? 'Editar Prédio' : 'Criar Prédio' }}
+      </h2>
 
-            <div *ngIf="descricao.errors?.required && descricao.touched" class="invalid-feedback d-block">
-              Descrição é obrigatória.
-            </div>
+      <div class="row">
+        <div class="col-6">
+          <label for="descricao" class="form-label fw-bold">Descrição</label>
+          <input id="descricao" name="descricao" class="form-control" placeholder="Digite a descrição"
+            [(ngModel)]="predio.descricao" #descricao="ngModel" required minlength="1" maxlength="90">
 
-             <div *ngIf="descricao.errors?.minlength && descricao.touched" class="invalid-feedback d-block">
-              A descrição deve ter pelo menos {{ descricao.errors?.minlength.requiredLength }} caracteres.
-            </div>
-
+          <div *ngIf="descricao.invalid && descricao.touched" class="invalid-feedback d-block">
+            Descrição é obrigatória.
           </div>
-  
-          <div class="col-3">
-            <label for="cep" class="form-label fw-bold">CEP</label>
-            <input id="cep" name="cep" class="form-control" placeholder="Digite o CEP"
-              [(ngModel)]="predio.cep" #cep="ngModel" required minlength="1" maxlength="10">
-            
-              <div *ngIf="cep.errors?.required && cep.touched" class="invalid-feedback d-block">
-              CEP é obrigatório.
-            </div>
 
+          <div *ngIf="descricao.errors?.minlength && descricao.touched" class="invalid-feedback d-block">
+            Menos de 1 caractere.
           </div>
-  
-          <div class="col-3">
-            <label for="numero" class="form-label fw-bold">Número</label>
-            <input id="numero" name="numero" class="form-control" placeholder="Digite o número"
-              [(ngModel)]="predio.numero" #numero="ngModel" required minlength="1">
 
-              <div *ngIf="numero.errors?.required && numero.touched" class="invalid-feedback d-block">
-                Número é obrigatório.
-              </div>
+        </div>
 
+        <div class="col-3">
+          <label for="cep" class="form-label fw-bold">CEP</label>
+          <input id="cep" name="cep" class="form-control" placeholder="Digite o CEP"
+            [(ngModel)]="predio.cep" #cep="ngModel" required minlength="8" maxlength="8" (input)="validateCep()">
+
+          <div *ngIf="cep.invalid && cep.touched" class="invalid-feedback d-block">
+            CEP é obrigatório.
           </div>
         </div>
-  
-        <div class="row">
-          <div class="col-6">
-            <label for="logradouro" class="form-label fw-bold">Logradouro</label>
-            <input id="logradouro" name="logradouro" class="form-control" placeholder="Digite o logradouro"
-              [(ngModel)]="predio.logradouro" #logradouro="ngModel">
-          </div>
-  
-          <div class="col-6">
-            <label for="complemento" class="form-label fw-bold">Complemento</label>
-            <input id="complemento" name="complemento" class="form-control" placeholder="Digite o complemento"
-              [(ngModel)]="predio.complemento" #complemento="ngModel">
+
+        <div class="col-3">
+          <label for="numero" class="form-label fw-bold">Número</label>
+          <input id="numero" name="numero" class="form-control" placeholder="Digite o número"
+            [(ngModel)]="predio.numero" #numero="ngModel" required maxlength="10">
+
+          <div *ngIf="numero.invalid && numero.touched" class="invalid-feedback d-block">
+            Número é obrigatório.
           </div>
         </div>
-  
-        <div class="row">
-          <div class="col-6">
-            <label for="bairro" class="form-label fw-bold">Bairro</label>
-            <input id="bairro" name="bairro" class="form-control" placeholder="Digite o bairro"
-              [(ngModel)]="predio.bairro" #bairro="ngModel">
-          </div>
-  
-          <div class="col-4">
-            <label for="localidade" class="form-label fw-bold">Localidade</label>
-            <input id="localidade" name="localidade" class="form-control" placeholder="Digite a cidade"
-              [(ngModel)]="predio.localidade" #localidade="ngModel">
-          </div>
-  
-          <div class="col-2">
-            <label for="uf" class="form-label fw-bold">UF</label>
-            <input id="uf" name="uf" class="form-control" placeholder="Ex: AM"
-              [(ngModel)]="predio.uf" #uf="ngModel" maxlength="2">
-          </div>
-        </div>
-  
-        <div class="row d-flex justify-content-between mt-4">
-          <div class="col-12 d-flex justify-content-between">
-            <button class="btn btn-secondary" type="button" (click)="new(form)">Cancelar</button>
-            <button class="btn btn-success" type="submit" [disabled]="form.invalid">
-              <i class="fas fa-save"></i> Salvar
-            </button>
-          </div>
-        </div>
-  
       </div>
+
+      <div class="row">
+        <div class="col-6">
+          <label for="logradouro" class="form-label fw-bold">Logradouro</label>
+          <input id="logradouro" name="logradouro" class="form-control" placeholder="Digite o logradouro"
+            [(ngModel)]="predio.logradouro" #logradouro="ngModel" maxlength="90">
+        </div>
+
+        <div class="col-6">
+          <label for="complemento" class="form-label fw-bold">Complemento</label>
+          <input id="complemento" name="complemento" class="form-control" placeholder="Digite o complemento"
+            [(ngModel)]="predio.complemento" #complemento="ngModel" maxlength="60">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <label for="bairro" class="form-label fw-bold">Bairro</label>
+          <input id="bairro" name="bairro" class="form-control" placeholder="Digite o bairro"
+            [(ngModel)]="predio.bairro" #bairro="ngModel" maxlength="90">
+        </div>
+
+        <div class="col-4">
+          <label for="localidade" class="form-label fw-bold">Localidade</label>
+          <input id="localidade" name="localidade" class="form-control" placeholder="Digite a cidade"
+            [(ngModel)]="predio.localidade" #localidade="ngModel" maxlength="90">
+        </div>
+
+        <div class="col-2">
+          <label for="uf" class="form-label fw-bold">UF</label>
+          <input id="uf" name="uf" class="form-control" placeholder="Ex: AM"
+            [(ngModel)]="predio.uf" #uf="ngModel" maxlength="2">
+        </div>
+      </div>
+
+      <div class="row d-flex justify-content-between mt-4">
+        <div class="col-12 d-flex justify-content-between">
+          <button class="btn btn-secondary" type="button" (click)="new(form)">Cancelar</button>
+          <button class="btn btn-success" type="submit" [disabled]="form.invalid">
+            <i class="fas fa-save"></i> Salvar
+          </button>
+        </div>
+      </div>
+
     </div>
-  </form>
-  
+  </div>
+</form>

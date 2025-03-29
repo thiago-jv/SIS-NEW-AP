@@ -5,7 +5,7 @@ import Notiflix from 'notiflix';
 @Injectable({
   providedIn: 'root' // Torna o serviço disponível para toda a aplicação
 })
-export class HandlerServiceService {
+export class HandlerService {
 
   constructor() {}
 

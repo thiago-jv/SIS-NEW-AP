@@ -12,11 +12,13 @@
             <label for="numeroApartamento" class="form-label fw-bold">Número</label>
             <input id="numeroApartamento" class="form-control" name="numeroApartamento"
               placeholder="Digite um número" [(ngModel)]="apartamento.numeroApartamento"
-              #numeroApartamento="ngModel" required>
-            <div *ngIf="numeroApartamento.errors?.required && numeroApartamento.touched"
+              #numeroApartamento="ngModel" required maxlength="10">
+           
+              <div *ngIf="numeroApartamento.errors?.required && numeroApartamento.touched"
               class="invalid-feedback d-block">
               Informe um numero.
             </div>
+
           </div>
         </div>
 
@@ -25,11 +27,13 @@
             <label for="descricao" class="form-label fw-bold">descricao</label>
             <input id="descricao" class="form-control" name="descricao"
               placeholder="Digite a descrição" [(ngModel)]="apartamento.descricao"
-              #descricao="ngModel" required>
-            <div *ngIf="descricao.errors?.required && descricao.touched"
+              #descricao="ngModel" required maxlength="90">
+         
+              <div *ngIf="descricao.errors?.required && descricao.touched"
               class="invalid-feedback d-block">
               Informe uma descricao.
             </div>
+         
           </div>
         </div>
 
@@ -38,11 +42,13 @@
             <label for="statusApartamento" class="form-label fw-bold">Status</label>
             <input id="statusApartamento" class="form-control" name="statusApartamento"
               placeholder="Digite um status" [(ngModel)]="apartamento.statusApartamento"
-              #statusApartamento="ngModel" required>
+              #statusApartamento="ngModel" required maxlength="20">
+
             <div *ngIf="statusApartamento.errors?.required && statusApartamento.touched"
               class="invalid-feedback d-block">
               Informe um status.
             </div>
+
           </div>
         </div>
       </div>
@@ -53,11 +59,13 @@
             <label for="medidor" class="form-label fw-bold">Medidor</label>
             <input id="medidor" class="form-control" name="medidor"
               placeholder="Digite um status" [(ngModel)]="apartamento.medidor"
-              #medidor="ngModel" required>
+              #medidor="ngModel" required maxlength="10">
+
             <div *ngIf="medidor.errors?.required && medidor.touched"
               class="invalid-feedback d-block">
               Informe um status.
             </div>
+
           </div>
         </div>
 

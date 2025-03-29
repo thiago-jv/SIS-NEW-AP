@@ -28,22 +28,22 @@ public class Predio implements Serializable {
 	@Column(name = "CEP", length = 8, nullable = false)
 	private String cep;
 
-	@Column(name = "LOGRADOURO")
+	@Column(name = "LOGRADOURO", length = 90)
 	private String logradouro;
 
-	@Column(name = "COMPLEMENTO")
+	@Column(name = "COMPLEMENTO", length = 60)
 	private String complemento;
 
-	@Column(name = "BAIRRO")
+	@Column(name = "BAIRRO", length = 90)
 	private String bairro;
 
-	@Column(name = "UF")
+	@Column(name = "UF", length = 2)
 	private String uf;
 
-	@Column(name = "LOCALIDADE")
+	@Column(name = "LOCALIDADE", length = 90)
 	private String localidade;
 
-	@Column(name = "NUMERO")
+	@Column(name = "NUMERO", length = 10)
 	private String numero;
 
 	public Predio() {

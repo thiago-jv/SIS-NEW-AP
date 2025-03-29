@@ -10,17 +10,17 @@ import { ApartamentoRoutingModule } from './apartamento-routing.module';
 
 @NgModule({
   declarations: [
-    ApartamentoFormComponent, 
+    ApartamentoFormComponent,
     ApartamentoListComponent
   ],
   imports: [
-    FormsModule,             // Permite o uso de formulários reativos com [(ngModel)], validações, etc.
-    CommonModule,            // Importa recursos comuns do Angular como *ngIf, *ngFor, etc.
-    ApartamentoRoutingModule,// Importa as rotas definidas para este módulo
-    SharedModule             // Importa componentes reutilizáveis como modal de confirmação
+    FormsModule,
+    CommonModule,
+    SharedModule,
+    ApartamentoRoutingModule
   ],
   exports: [
-    ApartamentoFormComponent, 
+    ApartamentoFormComponent,
     ApartamentoListComponent
   ]
 })

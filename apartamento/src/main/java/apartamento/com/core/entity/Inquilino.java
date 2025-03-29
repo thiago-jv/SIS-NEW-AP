@@ -28,7 +28,7 @@ public class Inquilino implements Serializable {
 	@Column(name = "EMAIL", length = 90)
 	private String email;
 
-	@Column(name = "CONTATO", length = 15)
+	@Column(name = "CONTATO", length = 11)
 	private String contato;
 
 	@Column(name = "STATUS", length = 20, nullable = false)

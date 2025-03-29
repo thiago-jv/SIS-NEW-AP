@@ -24,7 +24,7 @@ public class Diario implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(min = 1, max = 90)
+    @Size(min = 1, max = 255)
     @Column(name = "DESCRICAO", nullable = false)
     private String descricao;
 
