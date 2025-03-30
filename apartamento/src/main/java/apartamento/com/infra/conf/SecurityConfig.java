@@ -26,7 +26,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(autorized -> {
-                    autorized.requestMatchers("/usuarios/**").permitAll();
+                    autorized.requestMatchers("/clientes/**").permitAll();
                     autorized.anyRequest().authenticated();
                 })
                 .build();
