@@ -2,19 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Inquilino, InquilinoFilter } from '../core/model';
 import { AUTH_CONFIG } from '../core/auth.config';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InquilinoService {
 
-  inquilinoUrl: string = `http://localhost:8089/inquilinos`
+  inquilinoUrl: string = `${environment.apiUrl}/inquilinos`;
 
   constructor(private http: HttpClient) { }
 
   private getAuthHeaders(): HttpHeaders {
     const auth = btoa(`${AUTH_CONFIG.username}:${AUTH_CONFIG.password}`);
-  
+
     return new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Basic ${auth}`

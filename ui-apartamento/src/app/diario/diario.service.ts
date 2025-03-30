@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Diario, DiarioFilter } from '../core/model';
 import { AUTH_CONFIG } from '../core/auth.config';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DiarioService {
 
-  diarioUrl: string = `http://localhost:8089/diarios`;
+  diarioUrl: string = `${environment.apiUrl}/diarios`;
 
   constructor(private http: HttpClient) { }
 
