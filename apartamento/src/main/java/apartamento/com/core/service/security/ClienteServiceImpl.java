@@ -1,4 +1,4 @@
-package apartamento.com.core.service;
+package apartamento.com.core.service.security;
 
 import apartamento.com.common.http.dto.security.ClientePost;
 import apartamento.com.common.http.dto.security.ClienteResponse;

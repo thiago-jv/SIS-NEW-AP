@@ -1,6 +1,6 @@
 package apartamento.com.infra.conf;
 
-import apartamento.com.core.service.CustomUserDetailsService;
+import apartamento.com.core.service.security.CustomUserDetailsService;
 import apartamento.com.core.service.impl.UsuarioService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
