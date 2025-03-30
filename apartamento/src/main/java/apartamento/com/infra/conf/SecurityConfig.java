@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(autorized -> {
-                    autorized.requestMatchers("/usuarios/**").permitAll();
+                    autorized.requestMatchers("/clientes/**").permitAll();
                     autorized.anyRequest().authenticated();
                 })
                 .oauth2ResourceServer(oauth2RS -> oauth2RS.jwt(Customizer.withDefaults()))
@@ -48,6 +48,5 @@ public class SecurityConfig {
 
         return converter;
     }
-
 
 }
