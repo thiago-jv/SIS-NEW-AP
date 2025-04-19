@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,39 +29,33 @@ public class PredioResource {
 
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<PredioResponse> create(@RequestBody PredioPost predioPost) {
         return ResponseEntity.status(HttpStatus.CREATED).body(predioService.create(predioPost));
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<List<PredioResponse>> listAll() {
         return ResponseEntity.status(HttpStatus.OK).body(predioService.findAll());
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public void remove(@PathVariable Long id) {
         predioService.remove(id);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<PredioResponse> findById(@PathVariable Long id) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(predioService.findById(id));
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<PredioResponse> update(@PathVariable Long id, @RequestBody PredioPut predioPut) {
         PredioResponse predioAtualizado = predioService.update(predioPut, id);
         return ResponseEntity.status(HttpStatus.OK).body(predioAtualizado);
     }
 
     @GetMapping("/filter")
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Page<PredioResponse>> filter(PredioFilter predioFilter, Pageable pageable) {
         Page<PredioResponse> predioPage = predioService.filter(predioFilter, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(predioPage);

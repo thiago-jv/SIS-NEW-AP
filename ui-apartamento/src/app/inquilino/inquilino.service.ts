@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Inquilino, InquilinoFilter } from '../core/model';
-import { AUTH_CONFIG } from '../core/auth.config';
 
 @Injectable({
   providedIn: 'root'
@@ -12,30 +11,21 @@ export class InquilinoService {
 
   constructor(private http: HttpClient) { }
 
-  private getAuthHeaders(): HttpHeaders {
-    const auth = btoa(`${AUTH_CONFIG.username}:${AUTH_CONFIG.password}`);
-  
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Basic ${auth}`
-    });
-  }
-
   create(inquilino: Inquilino): Promise<Inquilino> {
-    return this.http.post<Inquilino>(this.inquilinoUrl, inquilino, { headers: this.getAuthHeaders() }).toPromise();
+    return this.http.post<Inquilino>(this.inquilinoUrl, inquilino).toPromise();
   }
 
   update(inquilino: Inquilino): Promise<Inquilino> {
-    return this.http.put<Inquilino>(`${this.inquilinoUrl}/${inquilino.id}`, inquilino, { headers: this.getAuthHeaders() }).toPromise();
+    return this.http.put<Inquilino>(`${this.inquilinoUrl}/${inquilino.id}`, inquilino).toPromise();
   }
 
   async findAll(): Promise<Inquilino[]> {
-    const response = await this.http.get<Inquilino[]>(`${this.inquilinoUrl}`, { headers: this.getAuthHeaders(), responseType: 'json' }).toPromise();
+    const response = await this.http.get<Inquilino[]>(`${this.inquilinoUrl}`, { responseType: 'json' }).toPromise();
     return response ?? [];
   }
 
   delete(id: number): Promise<void> {
-    return this.http.delete(`${this.inquilinoUrl}/${id}`, { headers: this.getAuthHeaders() }).toPromise()
+    return this.http.delete(`${this.inquilinoUrl}/${id}`).toPromise()
       .then(response => {})
       .catch(error => {
         console.log("Erro ao processar sua requisição");
@@ -43,7 +33,7 @@ export class InquilinoService {
   }
 
   findById(id: number): Promise<Inquilino> {
-    return this.http.get<Inquilino>(`${this.inquilinoUrl}/${id}`, { headers: this.getAuthHeaders() }).toPromise();
+    return this.http.get<Inquilino>(`${this.inquilinoUrl}/${id}`).toPromise();
   }
 
   async filter(filter: InquilinoFilter): Promise<{ inquilinos: Inquilino[], total: number }> {
@@ -56,7 +46,7 @@ export class InquilinoService {
     }
 
     const response: any = await this.http
-      .get(`${this.inquilinoUrl}/filter`, { headers: this.getAuthHeaders(), params })
+      .get(`${this.inquilinoUrl}/filter`, { params })
       .toPromise();
 
     return {

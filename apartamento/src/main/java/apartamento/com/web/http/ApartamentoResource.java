@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,39 +28,33 @@ public class ApartamentoResource {
     }
 
     @PostMapping
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<ApartamentoResponse> create(@RequestBody ApartamentoPost apartamentoPost) {
         return ResponseEntity.status(HttpStatus.CREATED).body(apartamentoService.create(apartamentoPost));
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<List<ApartamentoResponse>> listAll() {
         return ResponseEntity.status(HttpStatus.OK).body(apartamentoService.findAll());
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public void remove(@PathVariable Long id) {
         apartamentoService.remove(id);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<ApartamentoResponse> findById(@PathVariable Long id) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(apartamentoService.findById(id));
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<ApartamentoResponse> update(@PathVariable Long id, @RequestBody ApartamentoPut apartamentoPut) {
         ApartamentoResponse apartamentoAtualizado = apartamentoService.update(apartamentoPut, id);
         return ResponseEntity.status(HttpStatus.OK).body(apartamentoAtualizado);
     }
 
     @GetMapping("/filter")
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<Page<ApartamentoResponse>> filter(ApartamentoFilter apartamentoFilter, Pageable pageable) {
         Page<ApartamentoResponse> apartamentoPage = apartamentoService.filter(apartamentoFilter, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(apartamentoPage);
