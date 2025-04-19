@@ -78,8 +78,6 @@ Angula 11 [Sobre](https://v11.angular.io/docs)
 
 Bootstrap 5 [Sobre](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
 
-Fontawesome [Sobre](https://fontawesome.com/)
-
 Node v16.20.2 [Sobre](https://nodejs.org/en/download/package-manager)
 
 Componentes [Sobre](https://v11.angular.io/guide/component-interaction)
