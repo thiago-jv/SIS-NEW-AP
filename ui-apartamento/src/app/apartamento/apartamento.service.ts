@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Apartamento, ApartamentoFilter } from '../core/model';
-import { AUTH_CONFIG } from '../core/auth.config';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,45 +8,32 @@ import { environment } from 'src/environments/environment';
 })
 export class ApartamentoService {
 
-  apartamentoUrl: string = `${environment.apiUrl}/apartamentos`;
+  private apartamentoUrl: string = `${environment.apiUrl}/apartamentos`;
 
-  constructor(private http: HttpClient) { }
-
-  private getAuthHeaders(): HttpHeaders {
-    const auth = btoa(`${AUTH_CONFIG.username}:${AUTH_CONFIG.password}`);
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Basic ${auth}`
-    });
-  }
+  constructor(private http: HttpClient) {}
 
   create(apartamento: Apartamento): Promise<Apartamento> {
-    return this.http.post<Apartamento>(this.apartamentoUrl, apartamento, { headers: this.getAuthHeaders() }).toPromise();
+    return this.http.post<Apartamento>(this.apartamentoUrl, apartamento).toPromise();
   }
 
   update(apartamento: Apartamento): Promise<Apartamento> {
-    return this.http.put<Apartamento>(`${this.apartamentoUrl}/${apartamento.id}`, apartamento, { headers: this.getAuthHeaders() }).toPromise();
+    return this.http.put<Apartamento>(`${this.apartamentoUrl}/${apartamento.id}`, apartamento).toPromise();
   }
 
   async findAll(): Promise<Apartamento[]> {
-    const response = await this.http.get<Apartamento[]>(`${this.apartamentoUrl}`, {
-      headers: this.getAuthHeaders(),
-      responseType: 'json'
-    }).toPromise();
-
+    const response = await this.http.get<Apartamento[]>(this.apartamentoUrl).toPromise();
     return response ?? [];
   }
 
   delete(id: number): Promise<void> {
-    return this.http.delete(`${this.apartamentoUrl}/${id}`, { headers: this.getAuthHeaders() }).toPromise()
-      .then(() => {})
+    return this.http.delete<void>(`${this.apartamentoUrl}/${id}`).toPromise()
       .catch(() => {
         console.log("Erro ao processar sua requisição");
       });
   }
 
   findById(id: number): Promise<Apartamento> {
-    return this.http.get<Apartamento>(`${this.apartamentoUrl}/${id}`, { headers: this.getAuthHeaders() }).toPromise();
+    return this.http.get<Apartamento>(`${this.apartamentoUrl}/${id}`).toPromise();
   }
 
   async filter(filter: ApartamentoFilter): Promise<{ apartamentos: Apartamento[], total: number }> {
@@ -56,11 +42,11 @@ export class ApartamentoService {
       .set('size', filter.intensPorPagina.toString());
 
     if (filter.id) {
-      params = params.set('id', filter.id);
+      params = params.set('id', filter.id.toString());
     }
 
     const response: any = await this.http
-      .get(`${this.apartamentoUrl}/filter`, { headers: this.getAuthHeaders(), params })
+      .get(`${this.apartamentoUrl}/filter`, { params })
       .toPromise();
 
     return {

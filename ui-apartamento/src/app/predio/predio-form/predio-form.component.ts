@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Cep, Predio } from 'src/app/core/model';
+import { Predio } from 'src/app/core/model';
 import { PredioService } from '../predio.service';
 import { Title } from '@angular/platform-browser';
 import Notiflix from 'notiflix';
@@ -106,5 +106,5 @@ export class PredioFormComponent implements OnInit {
         });
     }
   }
-  
+
 }

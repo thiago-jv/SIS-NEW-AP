@@ -1,9 +1,10 @@
-import { ErrorHandler, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { HandlerService } from './handler.service';
 import { Title } from '@angular/platform-browser';
+import { AuthService } from '../seguranca/auth.service';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { Title } from '@angular/platform-browser';
   ],
   providers: [
     HandlerService,
+    AuthService,
     Title
   ]
 })

@@ -1,52 +1,38 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Diario, DiarioFilter } from '../core/model';
-import { AUTH_CONFIG } from '../core/auth.config';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Diario, DiarioFilter } from '../core/model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DiarioService {
 
-  diarioUrl: string = `${environment.apiUrl}/diarios`;
+  private diarioUrl: string = `${environment.apiUrl}/diarios`;
 
-  constructor(private http: HttpClient) { }
-
-  private getAuthHeaders(): HttpHeaders {
-    const auth = btoa(`${AUTH_CONFIG.username}:${AUTH_CONFIG.password}`);
-
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Basic ${auth}`
-    });
-  }
+  constructor(private http: HttpClient) {}
 
   create(diario: Diario): Promise<Diario> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Diario>(this.diarioUrl, diario, { headers: this.getAuthHeaders() }).toPromise();
+    return this.http.post<Diario>(this.diarioUrl, diario).toPromise();
   }
 
   update(diario: Diario): Promise<Diario> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.put<Diario>(`${this.diarioUrl}/${diario.id}`, diario, { headers: this.getAuthHeaders() }).toPromise();
+    return this.http.put<Diario>(`${this.diarioUrl}/${diario.id}`, diario).toPromise();
   }
 
-  async findAll(): Promise<Diario[]> {
-    const response = await this.http.get<Diario[]>(`${this.diarioUrl}`, { headers: this.getAuthHeaders(), responseType: 'json' }).toPromise();
-    return response ?? [];
+  findAll(): Promise<Diario[]> {
+    return this.http.get<Diario[]>(this.diarioUrl).toPromise();
   }
 
   delete(id: number): Promise<void> {
-    return this.http.delete(`${this.diarioUrl}/${id}`, { headers: this.getAuthHeaders() }).toPromise()
-      .then(response => {})
+    return this.http.delete<void>(`${this.diarioUrl}/${id}`).toPromise()
       .catch(error => {
-        console.log("Erro ao processar sua requisição");
+        console.log("Erro ao processar sua requisição:", error);
       });
   }
 
   findById(id: number): Promise<Diario> {
-    return this.http.get<Diario>(`${this.diarioUrl}/${id}`, { headers: this.getAuthHeaders() }).toPromise();
+    return this.http.get<Diario>(`${this.diarioUrl}/${id}`).toPromise();
   }
 
   async filter(filter: DiarioFilter): Promise<{ diarios: Diario[], total: number }> {
@@ -55,11 +41,11 @@ export class DiarioService {
       .set('size', filter.intensPorPagina.toString());
 
     if (filter.id) {
-      params = params.set('id', filter.id);
+      params = params.set('id', filter.id.toString());
     }
 
     const response: any = await this.http
-      .get(`${this.diarioUrl}/filter`, { headers: this.getAuthHeaders(), params })
+      .get(`${this.diarioUrl}/filter`, { params })
       .toPromise();
 
     return {

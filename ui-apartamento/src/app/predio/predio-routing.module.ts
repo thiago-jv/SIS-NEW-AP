@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { PredioFormComponent } from './predio-form/predio-form.component';
 import { PredioListComponent } from './predio-list/predio-list.component';

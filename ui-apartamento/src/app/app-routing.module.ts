@@ -21,7 +21,11 @@ const routes: Routes = [
   {
     path: 'inquilino',
     loadChildren: () => import('./inquilino/inquilino.module').then(m => m.InquilinoModule)
-  }
+  },
+  { path: 'login',
+     loadChildren: () => import('./seguranca/seguranca.module').then(m => m.SegurancaModule)
+
+  },
 ];
 
 @NgModule({

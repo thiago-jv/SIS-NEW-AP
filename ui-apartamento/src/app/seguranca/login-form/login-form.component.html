@@ -1,0 +1,34 @@
+<div class="container mt-5" style="max-width: 400px;">
+  <div class="border rounded shadow bg-white p-4">
+    <h2 class="text-white text-center rounded p-3 mb-4" style="background-color: teal;">
+      Login
+    </h2>
+
+    <form #f="ngForm" (ngSubmit)="login(usuario.value, senha.value)">
+
+      <div class="mb-3">
+        <label for="usuario" class="form-label fw-bold">E-mail</label>
+        <input type="email" id="usuario" name="usuario" class="form-control"
+               placeholder="Digite seu e-mail" ngModel required #usuario="ngModel">
+        <div *ngIf="usuario.invalid && usuario.touched" class="invalid-feedback d-block">
+          E-mail é obrigatório.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="senha" class="form-label fw-bold">Senha</label>
+        <input type="password" id="senha" name="senha" class="form-control"
+               placeholder="Digite sua senha" ngModel required #senha="ngModel">
+        <div *ngIf="senha.invalid && senha.touched" class="invalid-feedback d-block">
+          Senha é obrigatória.
+        </div>
+      </div>
+
+      <div class="d-grid">
+        <button class="btn btn-success" type="submit" [disabled]="f.invalid" >
+          <i class="fas fa-sign-in-alt"></i> Entrar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

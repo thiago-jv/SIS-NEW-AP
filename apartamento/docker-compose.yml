@@ -21,6 +21,7 @@ volumes:
 networks:
   network-new-apartamento:
     driver: bridge
+    name: network-new-apartamento
 
 
 
